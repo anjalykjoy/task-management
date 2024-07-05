@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
 class LoginController extends Controller
 {
     public function login(Request $request){
@@ -21,7 +22,7 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return response()->json(['status'=>422 ,'errors'=>$messages]);
         }
-        if (Auth::attempt($request->email,$request->password)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
  
             return response()->json(['status'=>200,'message'=>'User Logged In Successfully']);
         }

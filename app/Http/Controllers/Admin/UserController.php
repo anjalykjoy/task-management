@@ -34,22 +34,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => ['required'],
-            'email' => ['required','email', 'unique:'.User::class],
-            'password' => ['required', 'confirmed'],
-        ]);
-        $messages = [
-            'name.required' => 'Name field is required',
-            'email.email' => 'Email Should be email format',
-            'email.unique' => 'Email Should be Unique',
-            'password.required' => 'Password field is required',
-            'confirm_password.required' => 'Same as Password field',
-
-        ];
-        if ($validator->fails()) {
-            return response()->json(['status'=>422 ,'errors'=>$messages]);
-        }
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
